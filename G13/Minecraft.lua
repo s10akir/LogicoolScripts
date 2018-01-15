@@ -1,4 +1,5 @@
-i = 0
+toolCnt = 1 -- switchTools用のカウンタ
+
 
 function OnEvent(event, arg)
     --OutputLogMessage("event = %s, arg = %s\n", event, arg);
@@ -13,15 +14,22 @@ function OnEvent(event, arg)
         end
     end
 
-    -- G21でホットバー1~4をスイッチ
-    -- [剣][ピッケル][シャベル][オノ] とかにしとくと便利
+    -- G21
     if (arg == 21) then
         if (event == "G_PRESSED") then
-            PressAndReleaseKey(tostring(i))
-            i = i + 1
-            if (4 < i) then
-                i = 1
-            end
+            switchTools()
         end
+    end
+end
+
+--[[
+ホットバー1~4をスイッチ
+[剣][ピッケル][シャベル][オノ] とかにしとくと便利
+]]
+function switchTools()
+    PressAndReleaseKey(tostring(toolCnt))
+    toolCnt = toolCnt + 1
+    if (4 < toolCnt) then
+        toolCnt = 1
     end
 end
